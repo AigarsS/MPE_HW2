@@ -1,5 +1,6 @@
 package com.example.mpe_hw2;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         switchToSecondActivity = findViewById(R.id.activity_main_button);
         switchToSecondActivity.setOnClickListener(new View.OnClickListener() {

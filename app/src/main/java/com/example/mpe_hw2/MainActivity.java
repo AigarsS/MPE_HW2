@@ -9,37 +9,29 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Button switchToSecondActivity;
-    Button openGroupMembers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+       findViewById(R.id.activity_main_button)
+               .setOnClickListener(new View.OnClickListener() {
+                   @Override
+                    public void onClick(View view) {
+                        Intent switchActivityIntent = new Intent(MainActivity.this,  SecondActivity.class);
+                        switchActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(switchActivityIntent);
+                    }
+               });
 
-        switchToSecondActivity = findViewById(R.id.activity_main_button);
-        switchToSecondActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchActivities();
-            }
-
-        });
-
-        openGroupMembers = findViewById(R.id.group_member_button);
-        openGroupMembers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new GroupMemberFragment().show(
-                        getSupportFragmentManager(), GroupMemberFragment.TAG);
-            }
-        });
-    }
-
-    private void switchActivities() {
-        Intent switchActivityIntent = new Intent(this, SecondActivity.class);
-        switchActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(switchActivityIntent);
+       findViewById(R.id.group_member_button)
+               .setOnClickListener(new View.OnClickListener() {
+                   @Override
+                    public void onClick(View view) {
+                        new GroupMemberFragment().show(
+                                getSupportFragmentManager(), GroupMemberFragment.TAG);
+                    }
+               });
     }
 }

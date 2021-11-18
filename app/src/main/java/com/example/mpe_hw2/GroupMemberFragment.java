@@ -17,12 +17,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GroupMemberFragment extends DialogFragment {
+
+    public static String TAG = "GroupMemberDialog";
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        final List<String> members = Arrays.asList(getResources().getStringArray(R.array.group_members));
+        AlertDialog alertDialog = buildWithDefaults(new AlertDialog.Builder(getActivity())).create();
 
-        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+        alertDialog.setOnShowListener(dialog -> {
+            ((AlertDialog) dialog)
+                    .getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setOnClickListener(view -> showToast("You clicked OK"));
+        });
+
+        return alertDialog;
+    }
+
+    private AlertDialog.Builder buildWithDefaults(AlertDialog.Builder builder) {
+        final List<String> members = Arrays.asList(getResources().getStringArray(R.array.group_members));
 
         builder.setTitle("1st Group’s Dialog");
         builder.setMultiChoiceItems(
@@ -34,22 +47,12 @@ public class GroupMemberFragment extends DialogFragment {
                     } else {
                         showToast(members.get(which) + " unchecked");
                     }}
-                );
+        );
         builder.setPositiveButton(R.string.ok, null);
         builder.setNegativeButton(R.string.close, (dialog, which) -> showToast("You closed dialog"));
 
-        AlertDialog alertDialog = builder.create();
-
-        alertDialog.setOnShowListener(dialog -> {
-            ((AlertDialog) dialog)
-                    .getButton(AlertDialog.BUTTON_POSITIVE)
-                    .setOnClickListener(view -> showToast("You clicked OK"));
-        });
-
-        return alertDialog;
+        return builder;
     }
-
-    public static String TAG = "GroupMemberDialog";
 
     private void showToast(String text) {
         Context context = getContext();

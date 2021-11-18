@@ -13,15 +13,32 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class GroupMemberFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog alertDialog = new AlertDialog.Builder(requireContext())
-                .setMessage(R.string.order_confirmation)
-                .setPositiveButton(R.string.ok, null)
-                .setNegativeButton(R.string.close, (dialog, which) -> showToast("You closed dialog"))
-                .create();
+        final List<String> members = Arrays.asList(getResources().getStringArray(R.array.group_members));
+
+        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+
+        builder.setTitle("1st Group’s Dialog");
+        builder.setMultiChoiceItems(
+                R.array.group_members,
+                null,
+                (dialogInterface, which, isChecked) -> {
+                    if(isChecked) {
+                        showToast(members.get(which) + " checked");
+                    } else {
+                        showToast(members.get(which) + " unchecked");
+                    }}
+                );
+        builder.setPositiveButton(R.string.ok, null);
+        builder.setNegativeButton(R.string.close, (dialog, which) -> showToast("You closed dialog"));
+
+        AlertDialog alertDialog = builder.create();
 
         alertDialog.setOnShowListener(dialog -> {
             ((AlertDialog) dialog)
@@ -31,7 +48,6 @@ public class GroupMemberFragment extends DialogFragment {
 
         return alertDialog;
     }
-
 
     public static String TAG = "GroupMemberDialog";
 

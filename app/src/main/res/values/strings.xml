@@ -3,4 +3,10 @@
     <string name="order_confirmation">MPE-HW2</string>
     <string name="ok">Ok</string>
     <string name="close">Close</string>
+
+    <string-array name="group_members">
+        <item>Aigars Strods</item>
+        <item>Raivo Lapiņš</item>
+        <item>Guntis Graudins</item>
+    </string-array>
 </resources>

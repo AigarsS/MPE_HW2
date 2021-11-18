@@ -37,10 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchActivities() {
         Intent switchActivityIntent = new Intent(this, SecondActivity.class);
+        switchActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(switchActivityIntent);
-    }
-
-    private void openGroupMembers() {
-
     }
 }
